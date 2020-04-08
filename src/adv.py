@@ -1,5 +1,5 @@
 from room import Room
-
+from player import Player
 # Declare all the rooms
 
 room = {
@@ -21,7 +21,6 @@ chamber! Sadly, it has already been completely emptied by
 earlier adventurers. The only exit is to the south."""),
 }
 
-
 # Link rooms together
 
 room['outside'].n_to = room['foyer']
@@ -38,6 +37,46 @@ room['treasure'].s_to = room['narrow']
 #
 
 # Make a new player object that is currently in the 'outside' room.
+new_player = Player("Tim", room['outside'])
+
+# print(new_player.room.name)
+
+while True:
+    print(new_player.current_room.name)
+    print(new_player.current_room.description)
+    currentroom = new_player.current_room
+    playerInput = input(":")
+    if playerInput == "q" or playerInput == "Q":
+        exit()
+    elif playerInput.lower() == "n" or playerInput.lower() == "e" or playerInput.lower() == "s" or playerInput.lower() == "w":
+        if getattr(currentroom, playerInput + "_to") == None:
+            print(
+                f"You cannot go {playerInput} from {new_player.current_room.name}\n")
+        else:
+            new_player.current_room = getattr(currentroom, playerInput + "_to")
+    # elif playerInput == "E" or playerInput == "e":
+    #     new_player.current_room = new_player.current_room.e_to
+    # elif playerInput == "S" or playerInput == "s":
+    #     new_player.current_room = new_player.current_room.s_to
+    # elif playerInput == "W" or playerInput == "w":
+    #     new_player.current_room = new_player.current_room.w_to
+
+
+# for key, value in room.items():
+#     if new_player.room.name == value.name:
+#         print(value.name)
+#         print(value.description)
+#         print(value.n_to.name)
+#         playerinput = input(": ")
+
+
+#     if(playerinput == "q"):
+#         print(playerinput)
+#         quit
+#     if(playerinput == "N"):
+#         print(playerinput)
+#         new_player.room[value.n_to]
+#         print(new_player.room.name)
 
 # Write a loop that:
 #
